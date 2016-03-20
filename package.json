@@ -1,85 +1,51 @@
 {
-  "name": "my-first-hoodie",
-  "version": "3.2.1",
-  "bundleDependencies": [
-    "hoodie-plugin-appconfig",
-    "hoodie-plugin-email",
-    "hoodie-plugin-users",
-    "hoodie-server"
-  ],
-  "dependencies": {
-    "hoodie-plugin-appconfig": "^2.0.1",
-    "hoodie-plugin-email": "^1.0.0",
-    "hoodie-plugin-users": "^2.2.2",
-    "hoodie-server": "^4.0.2",
-    "grunt": "^0.4.5",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "load-grunt-tasks": "^1.0.0"
+  "name": "hoodie-app-tracker",
+  "description": "Default Hoodie app",
+  "author": "The Hoodie Community and other contributors | http://hood.ie/",
+  "bugs": {
+    "url": "https://github.com/hoodiehq/hoodie-app-tracker/issues"
   },
   "engines": {
-    "node": ">=0.10.22"
+    "node": ">=4",
+    "npm": ">=3"
   },
-  "files": [
-    "www/"
+  "homepage": "https://github.com/hoodiehq/hoodie-app-tracker",
+  "keywords": [
+    "hoodie",
+    "app"
   ],
-  "hoodie": {
-    "plugins": [
-      "hoodie-plugin-appconfig",
-      "hoodie-plugin-email",
-      "hoodie-plugin-users"
-    ]
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoodiehq/hoodie-app-tracker.git"
   },
   "scripts": {
-    "start": "node node_modules/hoodie-server/bin/start"
+    "pretest": "standard test/**/*.js",
+    "test": "frontend-test-background mocha test/*.js",
+    "start": "hoodie",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "type": "app",
-  "gitHead": "33fdb70357c415bbed56bbbd5197c805c0264294",
-  "description": "[![Dependency Status](https://david-dm.org/hoodiehq/my-first-hoodie.svg)](https://david-dm.org/hoodiehq/my-first-hoodie)",
-  "_id": "my-first-hoodie@3.2.1",
-  "_shasum": "240df30b9664e56a04bb2ba2ad26c52e5691d763",
-  "_from": "my-first-hoodie@3.2.1",
-  "_npmVersion": "2.13.0",
-  "_nodeVersion": "2.3.0",
-  "_npmUser": {
-    "name": "boennemann",
-    "email": "stephan@boennemann.me"
+  "dependencies": {
+    "hoodie": "git://github.com/hoodiehq/hoodie#tent"
   },
-  "dist": {
-    "shasum": "240df30b9664e56a04bb2ba2ad26c52e5691d763",
-    "tarball": "http://registry.npmjs.org/my-first-hoodie/-/my-first-hoodie-3.2.1.tgz"
+  "devDependencies": {
+    "@gr2m/frontend-test-setup": "^1.1.3",
+    "chai": "^3.5.0",
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^2.2.1",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "^1.2.1",
+    "load-grunt-tasks": "^1.0.0",
+    "mocha": "^2.3.4",
+    "semantic-release": "^6.0.3",
+    "standard": "^6.0.7"
   },
-  "maintainers": [
-    {
-      "name": "svnlto",
-      "email": "me@svenlito.com"
-    },
-    {
-      "name": "caolan",
-      "email": "caolan.mcmahon@gmail.com"
-    },
-    {
-      "name": "gr2m",
-      "email": "gregor@martynus.net"
-    },
-    {
-      "name": "jan",
-      "email": "jan@apache.org"
-    },
-    {
-      "name": "espy",
-      "email": "hello@alexfeyerke.com"
-    },
-    {
-      "name": "boennemann",
-      "email": "stephan@boennemann.me"
-    },
-    {
-      "name": "hoodiebot",
-      "email": "stephan@thehoodiefirm.com"
+  "frontend-test-setup": {
+    "server": {
+      "cmd": "hoodie --loglevel=silly --inMemory=true",
+      "host": "127.0.0.1",
+      "port": 8080
     }
-  ],
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/my-first-hoodie/-/my-first-hoodie-3.2.1.tgz",
-  "readme": "ERROR: No README data found!"
+  }
 }

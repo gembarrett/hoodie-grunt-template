@@ -1,5 +1,5 @@
 module.exports = {
   sass: {
-    files: {'www/assets/css/main.css':'src/assets/main.scss'}
+    files: {'public/assets/css/app.css':'src/assets/app.scss'}
   }
 }

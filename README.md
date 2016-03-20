@@ -4,159 +4,73 @@ Basic Hoodie template set up with Grunt to watch and compile SCSS files.
 
 # Instructions copied from Hoodie project setup
 
-## Creating a new Hoodie App
+# hoodie-app-tracker
 
-[![Dependency Status](https://david-dm.org/hoodiehq/my-first-hoodie.svg)](https://david-dm.org/hoodiehq/my-first-hoodie)
+> Default Hoodie app
 
-## Installation
+[![Build Status](https://travis-ci.org/hoodiehq/hoodie-app-tracker.svg?branch=master)](https://travis-ci.org/hoodiehq/hoodie-app-tracker)
+[![Dependency Status](https://david-dm.org/hoodiehq/hoodie-app-tracker.svg)](https://david-dm.org/hoodiehq/hoodie-app-tracker)
+[![devDependency Status](https://david-dm.org/hoodiehq/hoodie-app-tracker/dev-status.svg)](https://david-dm.org/hoodiehq/hoodie-app-tracker#info=devDependencies)
 
-Please refer to the [install guides for OS X, Linux and Windows](http://hood.ie/#installation).
+Tracker is a simple Hoodie app, meant to be a starting point to play and build
+with Hoodie.
 
-## Plugins
-
-To install a specific plugin, run (in your app's directory):
-
-    $ hoodie install <name>
-
-where `<name>` is one of the Hoodie plugins.
-
-To uninstall use:
-
-    $ hoodie uninstall <name>
-
-### List of Hoodie Plugins
-
-* users (installed by default)
-  - user sign up
-  - user sign in
-  - password forget
-  - change username
-  - change password
-
-* email (installed by default)
-  - send multipart emails
-
-
-## Troubleshooting
-
-In case you get npm permission errors, this is most likely down to the
-fact that you have previously used the 'sudo' command to install node
-modules.
-
-`sudo -H npm yourCommand` should fix this. For slightly more detail,
-please check out: [Why you shouldn't use sudo with npm](http://blog.hood.ie/2014/02/why-you-shouldnt-use-sudo-with-npm/)
-
-Make sure that local-tld got installed correctly
-
-    $ NODE_PATH=`npm root -g`
-    $ open $NODE_PATH/local-tld
-
-Make sure that paths have been set correctly
-
-    $ echo $NODE_PATH
-    $ cat ~/Library/LaunchAgents/ie.hood.local-tld-service.plist
-
-In some situations, you may need to manually update `~/Library/LaunchAgents/ie.hood.local-tld-service.plist` to correctly source your Node installation, particularly if you are using a Node version manager, such as `nvm`.
-
-Check the output of `$ cat ~/Library/LaunchAgents/ie.hood.local-tld-service.plist` for the following:
+## Setup
 
 ```
-<key>ProgramArguments</key>
-<array>
-    <string>should equal the output of `$ which node`</string>
-    <string>should equal the output of `$ echo $NODE_PATH` + /local-tld/bin/local-tld-service</string>
-</array>
+git clone git@github.com:hoodiehq/hoodie-app-tracker.git
+cd hoodie-app-tracker
+npm install --production
 ```
 
-If these values aren't correct, you'll need to open `~/Library/LaunchAgents/ie.hood.local-tld-service.plist` in a text editor and update the file with the aforementioned values.
+Start server with
 
-If things do not work, try:
+```
+npm start
+```
 
-    $ launchctl unload ~/Library/LaunchAgents/ie.hood.local-tld-service.plist
-    $ launchctl load -Fw ~/Library/LaunchAgents/ie.hood.local-tld-service.plist
+### Optional: Setup email for password reset
 
-If things STILL don't work, try that (but don't tell Jan) ((I saw this! — Jan))
+If you want to use the password reset feature, you must configure an email account
+to send out notification, like a Google Mail account. Edit the `.hoodierc` file,
+the options are passed to [nodemailer.createTransport()](https://github.com/nodemailer/nodemailer-smtp-transport#usage)
 
-    $ sudo $NODE_PATH/local-tld/bin/local-tld-troubleshoot
+```
+cp .hoodierc-example .hoodierc
+```
 
-**Vhosts**
+## Deployment
 
-If you find Hoodie interfering with your vhosts, here's a temporary workaround:
+You can find a detailed instruction [here](deployment.md).
 
-To get your vhosts back: `$ sudo ipfw flush`
+## Contribute
 
-To get local-tld back: `$ npm install -g local-tld`
+`hoodie-app-tracker` is work in progress. The goal is to have a simple
+application with very clear and easy to understand HTML / CSS / JS code which
+ideally uses no 3rd party code at all, besides the Hoodie client.
 
-To find out which state you're in: `$ sudo ipfw list`
-If this includes something like "00100 fwd 127.0.0.1,5999 tcp from any to me dst-port 80 in", local-tld is currently running and might be blocking your vhosts.
+If you want to contribute to the frontend assets, you can simply open
+[www/index.html](www/index.html) directly in your browser and edit the files in
+the [www/](www/) folder.
 
-## Deploy to Nodejitsu
+## Tests
 
-You need a Nodejitsu account and the `jitsu` tool installed.
+Install devDependencies by running `npm install` without `--production`
 
-Create a new hoodie app:
+```
+npm install
+```
 
-    $ hoodie new myapp
+Then run tests with
 
-Start app locally:
+```
+npm test
+```
 
-    $ cd myapp
-    $ hoodie start
+## Need help or want to help?
 
-Create a database:
+It’s best to join our [chat](http://hood.ie/chat/).
 
-    $ jitsu database create couch myapp
+## License
 
-This prints out the URL for your database, something like:
-
-    http://nodejitsudb123456789.iriscouch.com:5984
-
-Go to:
-
-    http://nodejitsudb123456789.iriscouch.com:5984/_utils
-
-In the bottom right, click on "Fix This". Create a new user with the username `admin` and a password of your choice. Remember the password.
-
-Create the Nodejitsu app.
-
-    $ jitsu apps create
-
-Set your database URL as an environment variable:
-
-    $ jitsu env set COUCH_URL http://nodejitsudb1234567890.iriscouch.com:5984
-    $ jitsu env set HOODIE_ADMIN_USER admin
-    $ jitsu env set HOODIE_ADMIN_PASS <yourpassword>
-
-
-`<yourpassword>` is the one you set up two steps ago.
-
-Deploy!
-
-    $ jitsu deploy
-
-(wait a minute)
-
-Go to: `http://myapp.jit.su`
-
-Boom.
-
-## Deploy on a regular Linux/UNIX box:
-
-[See deployment.md](deployment.md)
-
-<!--## Deploy dreamcode tl;dr
-
-    $ hoodie new myapp
-    $ cd myapp
-    $ hoodie start
-
-    $ hoodie remote add nodejitsu
-     - jitsu login
-     - jitsu database create couch myapp
-         - setup couchdb admin
-     - jitsu apps create
-     - jitsu env set COUCH_URL http://...
-     - jitsu env set COUCH_PASS <secret>
-
-    $ hoodie deploy
-     - jitsu deploy-->
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
